@@ -10,7 +10,7 @@ cursor = None
 
 def login():
     global conn
-    conn = sqlite3.connect("D:\MOJE PLIKI\FlaskApp\pythonsqlite.db", check_same_thread=False)
+    conn = sqlite3.connect("../pythonsqlite.db", check_same_thread=False)
     global cursor
     cursor = conn.cursor()
     print("Zalogowano")
@@ -52,5 +52,5 @@ def create_connection(db_file):
 
 
 if __name__ == '__main__':
-    create_connection(r"D:\MOJE PLIKI\FlaskApp\pythonsqlite.db")
+    create_connection(r"..\pythonsqlite.db")
     app.run(debug=True)
