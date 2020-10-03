@@ -17,11 +17,10 @@ CREATE TABLE Client (
 CREATE TABLE Part (
     PartID int NOT NULL,
     Name varchar(255),
-    Price int NOT NULL,
+    Price float NOT NULL,
     InStock int,
     PRIMARY KEY (PartID)
 )
---DROP TABLE Mechanic
 
 CREATE TABLE Orders (
     OrderID int NOT NULL,
@@ -36,9 +35,51 @@ CREATE TABLE Car (
     RegistrationNbr int NOT NULL,
     Brand varchar(255),
     Model varchar(255),
-    ProductionYear, int,
+    ProductionYear int,
     Mileage int,
     PersonalIDNbr int,
     PRIMARY KEY (RegistrationNbr),
-    FOREIGN KEY (PersonalIDNbr) REFERENCES Client(PersonalIDNbr
+    FOREIGN KEY (PersonalIDNbr) REFERENCES Client(PersonalIDNbr)
+)
+
+CREATE TABLE Client_Car (
+    Client_CarID int NOT NULL,
+    PersonalIDNbr int,
+    RegistrationNbr int,
+    OrderID int,
+    PRIMARY KEY (Client_CarID),
+    FOREIGN KEY (PersonalIDNbr) REFERENCES Client(PersonalIDNbr),
+    FOREIGN KEY (RegistrationNbr) REFERENCES Car(RegistrationNbr),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+)
+CREATE TABLE MakeOrder (
+    MakeOrderID int NOT NULL,
+    MakeDate date,
+    Price float NOT NULL,
+    Status varchar(255),
+    Notification boolean,
+    Cancelling boolean,
+    OrderID int,
+    PRIMARY KEY (MakeOrderID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+)
+CREATE TABLE PartOrder (
+    PartOrderID int NOT NULL,
+    OrderDate date,
+    ReceiveDate date,
+    Price float NOT NULL,
+    Status varchar(255),
+    MechanicID int,
+    PartID int,
+    PRIMARY KEY (PartOrderID),
+    FOREIGN KEY (MechanicID) REFERENCES Mechanic(MechanicID),
+    FOREIGN KEY (PartID) REFERENCES Part(PartID)
+)
+CREATE TABLE Orders_Part (
+    Orders_PartID int NOT NULL,
+    OrderID int,
+    PartID int,
+    PRIMARY KEY (Orders_PartID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (PartID) REFERENCES Part(PartID)
 )
