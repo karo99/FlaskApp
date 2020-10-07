@@ -16,14 +16,14 @@ def login():
     conn = sqlite3.connect("../pythonsqlite.db", check_same_thread=False)
     global cursor
     cursor = conn.cursor()
-    print("Zalogowano")
+    print("Zalogowano do bazy danych.")
 
 
 def query():
     global conn
     global cursor
     query = '''INSERT OR REPLACE INTO Client (PersonalIDNbr, FirstName, LastName, PhoneNbr, Email, Address)
-    VALUES (2, 'Krzysztof', 'Malina', '612217878', 'k.malinka@gmail.com', 'Orzechowa 3'); '''
+    VALUES (2, 'Adam', 'Malina', '612217878', 'k.malinka@gmail.com', 'Orzechowa 3'); '''
     cursor.execute(query)  # Przygotowanie i wykonanie operacji bazy danych
     rows = cursor.fetchall()
     conn.commit()
